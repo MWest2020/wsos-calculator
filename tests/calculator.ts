@@ -99,6 +99,18 @@ describe("calculator", () => {
     expect(account.result).to.eql(new anchor.BN(7))
   })
 
+  it('Modulo',async () => {
+    await program.methods.modulo(new anchor.BN(10), new anchor.BN(2))
+    .accounts({
+        calculator: calculatorPair.publicKey,
+    })
+    .rpc()
+    const account = await program.account.calculator.fetch(calculatorPair.publicKey)
+    expect(account.result).to.eql(new anchor.BN(0))
+  })
+
+
+
   it('Clear',async () => {
     await program.methods.clear()
     .accounts({

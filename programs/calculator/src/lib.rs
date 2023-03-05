@@ -51,6 +51,12 @@ pub mod calculator {
         Ok(())
     }
 
+    pub fn modulo(ctx: Context<Modulo>, num1: i64, num2: i64) -> ProgramResult {
+        let calculator = &mut ctx.accounts.calculator;
+        calculator.result = num1 % num2;
+        Ok(())
+    }
+
     pub fn clear(ctx: Context<Clear>) -> ProgramResult {
         let calculator = &mut ctx.accounts.calculator;
         calculator.result = 0;
@@ -105,6 +111,12 @@ pub struct Exponentiation<'info> {
 
 #[derive(Accounts)]
 pub struct Rooting<'info> {
+    #[account(mut)]
+    pub calculator: Account<'info, Calculator>,
+}
+
+#[derive(Accounts)]
+pub struct Modulo<'info> {
     #[account(mut)]
     pub calculator: Account<'info, Calculator>,
 }
